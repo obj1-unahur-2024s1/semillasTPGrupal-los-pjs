@@ -1,0 +1,36 @@
+import parcelas.*
+import semillas.*
+
+//Tests parte 3 
+describe "Tests parcelas"{
+	const parcela1 = new Parcela(ancho = 20, largo = 1, hsDeSol = 8)
+	
+	const soja1 = new Soja(anioObtencion = 2024, altura = 1.10)
+	const soja2 = new Soja(anioObtencion = 2024, altura = 1.10)
+	const soja3 = new Soja(anioObtencion = 2024, altura = 1.10)
+	const soja4 = new Soja(anioObtencion = 2024, altura = 1.10)
+	const soja5 = new Soja(anioObtencion = 2024, altura = 1.10)
+		
+	test "Superficie y cantidad maxima de plantas de una parcela"{	
+		assert.equals(20,parcela1.superficie())
+		assert.equals(4,parcela1.cantMaxPlantas())		
+	}	
+	
+	test "Se agregan 4 plantas a la parcela"{
+		parcela1.plantar(soja1)
+		parcela1.plantar(soja2)
+		parcela1.plantar(soja3)
+		parcela1.plantar(soja4)
+		assert.notThat(parcela1.tieneComplicaciones())
+	}
+	
+	test "Se agrega mas plantas de la cantidad que tolera la parcela"{
+		parcela1.plantar(soja1)
+		parcela1.plantar(soja2)
+		parcela1.plantar(soja3)
+		parcela1.plantar(soja4)		
+		assert.throwsExceptionWithMessage("No fue posible plantar la planta" ,
+			{parcela1.plantar(soja5)}
+		)	
+	}
+}
